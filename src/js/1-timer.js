@@ -1,6 +1,19 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
 const startButton = document.querySelector('.btn');
+const daysEl = document.querySelector('[data-days]');
+const hoursEl = document.querySelector('[data-hours]');
+const minutesEl = document.querySelector('[data-minutes]');
+const secondsEl = document.querySelector('[data-seconds]');
+const input = document.querySelector('.dateInput');
+
+startButton.addEventListener('click', onStartButtonClick);
+
+let userSelectedDate;
+let intervalId;
 
 const options = {
   enableTime: true,
@@ -10,83 +23,61 @@ const options = {
   onClose(selectedDates) {
     console.log(selectedDates[0]);
     if (selectedDates[0].getTime() < Date.now()) {
-      window.alert('Please choose a date in the future');
+      // window.alert('Please choose a date in the future');
+      iziToast.warning({
+        title: 'Caution',
+        message: 'Please choose a date in the future',
+      });
+      iziToast.error({
+        title: 'Error',
+        message: 'Illegal operation',
+      });
       startButton.disabled = true;
     } else {
       startButton.disabled = false;
-      console.log(
-        selectedDates[0].getSeconds(),
-        selectedDates[0].getMinutes(),
-        selectedDates[0].getHours(),
-        selectedDates[0].getDay()
-      );
-
-      const elapsedTime = selectedDates[0].getTime() - Date.now();
-
-      let tmrDays = Math.trunc(elapsedTime / (24 * 60 * 60 * 1000));
-      let tmrHour = Math.trunc(
-        (elapsedTime - tmrDays * 24 * 60 * 60 * 1000) / (60 * 60 * 1000)
-      );
-      let tmrMin = Math.trunc(
-        (elapsedTime -
-          tmrDays * 24 * 60 * 60 * 1000 -
-          tmrHour * 60 * 60 * 1000) /
-          (60 * 1000)
-      );
-      let tmrSec = Math.trunc(
-        (elapsedTime -
-          tmrDays * 24 * 60 * 60 * 1000 -
-          tmrHour * 60 * 60 * 1000 -
-          tmrMin * 60 * 1000) /
-          1000
-      );
-
-      console.log(tmrSec, tmrMin, tmrHour, tmrDays);
-
-      const divTimer = document.querySelector('.timer');
-
-      const markup = `
-      <div class="timer">
-  <div class="field">
-    <span class="value" data-days>${tmrDays}</span>
-    <span class="label">Days</span>
-  </div>
-  <div class="field">
-    <span class="value" data-hours>${tmrHour}</span>
-    <span class="label">Hours</span>
-  </div>
-  <div class="field">
-    <span class="value" data-minutes>${tmrMin}</span>
-    <span class="label">Minutes</span>
-  </div>
-  <div class="field">
-    <span class="value" data-seconds>${tmrSec}</span>
-    <span class="label">Seconds</span>
-  </div>
-</div>
-      `;
-
-      divTimer.innerHTML = markup;
-
-      const timerStart = document.querySelector('.btn');
-
-      timerStart.addEventListener('click', event => {
-        formData[event.target.name] = event.target.value.trim();
-        localStorage.setItem(storageKey, JSON.stringify(formData));
-      });
+      userSelectedDate = selectedDates[0];
     }
   },
 };
 
-const timerStart = document.querySelector('.btn');
-
-timerStart.addEventListener('click', event => {
-  formData[event.target.name] = event.target.value.trim();
-  localStorage.setItem(storageKey, JSON.stringify(formData));
-});
-
 let fp1 = flatpickr('#datetime-picker', options);
 
-// let Calendar = document.querySelector(".btn");
-// let fpCalendar = flatpickr(Calendar, {});
-// fpCalendar.toggle();
+function onStartButtonClick() {
+  intervalId = setInterval(() => {
+    startButton.disabled = true;
+    input.disabled = true;
+    const diff = userSelectedDate - Date.now();
+    const { days, hours, minutes, seconds } = convertMs(diff);
+    daysEl.textContent = addLeadingZero(days);
+    hoursEl.textContent = addLeadingZero(hours);
+    minutesEl.textContent = addLeadingZero(minutes);
+    secondsEl.textContent = addLeadingZero(seconds);
+    if (diff < 1000) {
+      clearInterval(intervalId);
+      input.disabled = false;
+    }
+  }, 1000);
+}
+
+function convertMs(ms) {
+  // Number of milliseconds per unit of time
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  // Remaining days
+  const days = Math.floor(ms / day);
+  // Remaining hours
+  const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+
+function addLeadingZero(value) {
+  return String(value).padStart(2, 0);
+}

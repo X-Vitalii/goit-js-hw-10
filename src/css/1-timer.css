@@ -1,73 +1,15 @@
-/* .inputField {
-  margin-top: 20px;
-  border: 4px #4e75ff;
+.dateInput {
+  box-sizing: border-box;
   height: 40px;
-} */
-
-.dateInput flatpickr-input flatpickr-mobile {
-  border: 14px #0dc73e;
-}
-
-button {
-  color: #ffffff;
-  background-color: #4e75ff;
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5em;
-  letter-spacing: 4%;
-  text-align: center;
-  cursor: pointer;
-  margin: 0;
-  border-radius: 8px;
-  min-width: 95px;
-  height: 40px;
-  border: none;
-}
-button:hover,
-button:focus {
-  background-color: #6c8cff;
-}
-
-.btn:disabled {
-  background-color: #808080;
-}
-
-.timer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  margin: 32px auto 0;
-  gap: 24px;
-  margin: 0 auto;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-.value {
-  color: #2e2f42;
-  font-family: Montserrat;
-  font-size: 40px;
+  min-width: 240px;
+  padding: 8px 16px;
+  margin-right: 8px;
+  border: 1px solid #808080;
   font-weight: 400;
-  line-height: 1.2em;
-  letter-spacing: 4%;
-  text-align: center;
-}
-
-.label {
-  color: #2e2f42;
-  font-family: Montserrat;
   font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5em;
-  letter-spacing: 0%;
-  text-align: center;
+  line-height: 1.5;
+  color: #2e2f42;
 }
-
 
 input:hover,
 textarea:hover {
@@ -77,4 +19,62 @@ textarea:hover {
 input:active,
 textarea:active {
   border-color: #808080;
+}
+
+button {
+  text-align: center;
+  padding: 8px 16px;
+  margin: 0;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #4e75ff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.btn:hover,
+.btn:focus {
+  background-color: #6c8cff;
+  border: none;
+}
+
+.btn:disabled {
+  background-color: #cfcfcf;
+  color: #989898;
+  border: none;
+}
+
+.timer {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 100%;
+  margin-top: 32px;
+  gap: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  text-align: center;
+  color: #2e2f42;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.2em;
+  letter-spacing: 0.04em;
+}
+
+.label {
+  color: #2e2f42;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-align: center;
 }
