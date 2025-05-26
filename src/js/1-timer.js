@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import iconSVG from '../img/Vector.svg';
 
 const startButton = document.querySelector('.btn');
 const daysEl = document.querySelector('[data-days]');
@@ -24,13 +25,11 @@ const options = {
     console.log(selectedDates[0]);
     if (selectedDates[0].getTime() < Date.now()) {
       // window.alert('Please choose a date in the future');
-      iziToast.warning({
-        title: 'Caution',
-        message: 'Please choose a date in the future',
-      });
       iziToast.error({
-        title: 'Error',
-        message: 'Illegal operation',
+        title: '',
+        message: 'Please choose a date in the future',
+        position: 'topRight',
+        iconUrl: iconSVG,
       });
       startButton.disabled = true;
     } else {

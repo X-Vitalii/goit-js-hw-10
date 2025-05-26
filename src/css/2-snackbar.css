@@ -1,0 +1,70 @@
+.delayLabel {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-bottom: 8px;
+}
+
+legend {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+
+.delayInputField {
+  box-sizing: border-box;
+  width: 360px;
+  height: 40px;
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+
+.delayInputField:hover,
+fieldset:hover {
+  border-color: #000000; 
+}
+
+.delayInputField:focus {
+  border: none;
+  border-color: #4e75ff; 
+}
+
+fieldset {
+  box-sizing: border-box;
+  width: 360px;
+  height: 64px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+  margin: 0 0 24px 0;
+}
+
+.labelRadioButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 48px;
+}
+
+.submitButton {
+  box-sizing: border-box;
+  width: 360px;
+  height: 40px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+.submitButton:hover {
+    background-color: #6C8CFF;
+}
